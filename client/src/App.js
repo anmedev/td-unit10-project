@@ -1,53 +1,34 @@
-// import logo from './logo.svg';
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+import { Route, Routes } from "react-router-dom";
 import './App.css';
-import { useEffect, useState } from 'react';
-import axios from "axios";
+import './styles/reset.css';
+import './styles/global.css';
 
+import Header from './components/Header';
+import Courses from './components/Courses';
+// import CreateCourse from './components/CreateCourse';
+// import CoursesDetail from './components/CourseDetail';
+// import UpdateCourse from './components/UpdateCourse';
+// import UserSignIn from './components/UserSignIn';
+// import UserSignOut from './components/UserSignOut';
+// import UserSignUp from './components/UserSignUp';
+
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-APP COMPONENT AND ROUTES-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 function App() {
-  const [courses, setCourses] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/courses")
-      .then(res => {
-        setCourses(res.data);
-        console.log(res);
-      })
-      .catch(error => {
-        console.log("Error fetching and parsing data", error);
-      })
-  }, []);
-  
-  
   return (
-    <div className="App">
-      <ul>
-        {
-          courses.map(course => <li key={course.id}>{course.title}</li>)
-        }
-      </ul>
+    <div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Courses />} />
+        {/* <Route path="/courses/create" element={<CreateCourse/>} />
+        <Route path="/courses/:id" element={<CoursesDetail/>}/>
+        <Route path="/courses/:id/update" element={<UpdateCourse />}/>
+        <Route path="/signin" element={<UserSignIn />} />
+        <Route path="/signup" element={<UserSignUp />} />
+        <Route path="/signout" element={<UserSignOut  />} /> */}
+      </Routes>
     </div>
   );
-  
-  
-  
-  
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
 }
 
 export default App;
