@@ -1,19 +1,20 @@
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/courses")
-      .then((res) => {
-        setCourses(res.data);
-      })
-      .catch((error) => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/courses");
+        setCourses(response.data);
+      } catch (error) {
         console.log("Error fetching and parsing data", error);
-      });
+      }
+    }
+    fetchCourses();
   }, []);
 
   return (
