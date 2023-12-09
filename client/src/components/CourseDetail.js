@@ -7,23 +7,23 @@ import { useParams } from "react-router-dom";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CourseDetail = () => {
-  const [courses, setCourses] = useState(null);
+  const [course, setCourse] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchCourse = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/courses/${id}`);
-        setCourses(response.data);
+        setCourse(response.data);
       } catch (error) {
         console.log("Error fetching and parsing data", error);
       }
     };
-    fetchCourses();
+    fetchCourse();
   }, [id]);
 
-  // Waits until setCourses has data and renders the page once the var courses exist
-  if (courses) {
+  // Waits until setCourse has data and renders the page once a course exists
+  if (course) {
     return (
       <main>
         <div className="actions--bar">
@@ -39,18 +39,18 @@ const CourseDetail = () => {
             <div className="main--flex">
               <div>
                 <h3 className="course--detail--title">Course</h3>
-                <h4 className="course--name">{courses.title}</h4>
+                <h4 className="course--name">{course.title}</h4>
                 <p>
-                  By {courses.User.firstName} {courses.User.lastName}
+                  By {course.User.firstName} {course.User.lastName}
                 </p>
-                <Markdown>{courses.description}</Markdown>
+                <Markdown>{course.description}</Markdown>
               </div>
               <div>
                 <h3 className="course--detail--title">Estimated Time</h3>
-                <p>{courses.estimatedTime}</p>
+                <p>{course.estimatedTime}</p>
                 <h3 className="course--detail--title">Materials Needed</h3>
                 <ul className="course--detail--list">
-                  <Markdown>{courses.materialsNeeded}</Markdown>
+                  <Markdown>{course.materialsNeeded}</Markdown>
                 </ul>
               </div>
             </div>
