@@ -5,7 +5,7 @@ import './styles/reset.css';
 import './styles/global.css';
 import Header from './components/Header';
 import Courses from './components/Courses';
-// import CreateCourse from './components/CreateCourse';
+import CreateCourse from './components/CreateCourse';
 import CourseDetail from './components/CourseDetail';
 // import UpdateCourse from './components/UpdateCourse';
 // import UserSignIn from './components/UserSignIn';
@@ -19,7 +19,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Courses />} />
-        {/* <Route path="/courses/create" element={<CreateCourse/>} /> */}
+        <Route path="/courses/create" element={<CreateCourse/>} />
         <Route path="/courses/:id" element={<CourseDetail/>} />
         {/* <Route path="/courses/:id/update" element={<UpdateCourse />}/> */}
         {/* <Route path="/signin" element={<UserSignIn />} />

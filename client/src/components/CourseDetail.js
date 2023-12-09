@@ -1,9 +1,8 @@
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { useEffect, useState } from "react";
-import axios from "axios";
-import React from "react";
-import Markdown from "react-markdown";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import Markdown from "react-markdown";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CourseDetail = () => {
