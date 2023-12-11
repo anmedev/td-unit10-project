@@ -18,12 +18,12 @@ const UpdateCourse = () => {
     materialsNeeded: "",
     userId: authUser.id
 });
+
+  
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
   
-
-
   // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
     const fetchCourse = async () => {
@@ -69,34 +69,36 @@ const UpdateCourse = () => {
       console.log(error);
     }
   };
+
+  
   
     // Displays validation errors.
-  const DisplayErrors = () => {
-    if (errors) {
-      return <ErrorsDisplay errors={errors} />
-    }
-  }
+  // const DisplayErrors = () => {
+  //   if (errors) {
+  //     return <ErrorsDisplay errors={errors} />
+  //   }
+  // }
 
   if (course) {
     return (
       <main>
         <div className="wrap">
           <h2>Update Course</h2>
-          <DisplayErrors errors={errors} />
+          <ErrorsDisplay errors={errors} />
           <form onSubmit={handleSubmit}>
             <div className="main--flex">
               <div>
                 <label htmlFor="courseTitle">Course Title</label>
-                <input id="courseTitle" name="courseTitle" onChange={handleInput} type="text" defaultValue={course.title} />
+                <input id="courseTitle" name="title" onChange={handleInput} type="text" value={course.title} />
                 <p>By Joe Smith</p>
                 <label htmlFor="courseDescription">Course Description</label>
-                <textarea id="courseDescription" name="courseDescription" onChange={handleInput} defaultValue={course.description} />
+                <textarea id="courseDescription" name="description" onChange={handleInput} value={course.description} />
               </div>
               <div>
                 <label htmlFor="estimatedTime">Estimated Time</label>
-                <input id="estimatedTime" name="estimatedTime" type="text" onChange={handleInput} defaultValue={course.estimatedTime} />
+                <input id="estimatedTime" name="estimatedTime" type="text" onChange={handleInput} value={course.estimatedTime} />
                 <label htmlFor="materialsNeeded">Materials Needed</label>
-                <textarea id="materialsNeeded" name="materialsNeeded" onChange={handleInput} defaultValue={course.materialsNeeded} />
+                <textarea id="materialsNeeded" name="materialsNeeded" onChange={handleInput} value={course.materialsNeeded} />
               </div>
             </div>
             <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>

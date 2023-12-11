@@ -1,6 +1,6 @@
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { api } from "../utils/apiHelper";
 import Markdown from "react-markdown";
@@ -28,6 +28,10 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
+  // if (authUser && authUser.id === course.user.id) {
+
+  // }
+
    // Event handler to delete a course when button is clicked.
    const handleDelete = async (e) => {
     e.preventDefault();
@@ -50,9 +54,9 @@ const CourseDetail = () => {
       <main>
         <div className="actions--bar">
           <div className="wrap">
-            <a className="button" href={`/courses/${id}/update`}>Update Course</a>
-            <a className="button" onClick={handleDelete} href="/">Delete Course</a>
-            <a className="button button-secondary" href="/">Return to List</a>
+            <Link to={`/courses/${id}/update`} className="button">Update Course</Link>
+            <Link to="/" className="button" onClick={handleDelete}>Delete Course</Link>
+            <Link to="/" className="button button-secondary">Return to List</Link>
           </div>
         </div>
         <div className="wrap">
