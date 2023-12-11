@@ -1,8 +1,10 @@
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { api } from "../utils/apiHelper";
 import Markdown from "react-markdown";
+import UserContext from "../context/UserContext";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CourseDetail = () => {
@@ -10,6 +12,8 @@ const CourseDetail = () => {
   // State
   const [course, setCourse] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { authUser } = useContext(UserContext);
 
   // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
@@ -24,6 +28,22 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
+   // Event handler to delete a course when button is clicked.
+   const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api(`/courses/${id}`, "DELETE", course, authUser);
+      if (response.status === 204) {
+        console.log(`Your course "${course.title}" has been deleted!`);
+        navigate("/");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {
     return (
@@ -31,7 +51,7 @@ const CourseDetail = () => {
         <div className="actions--bar">
           <div className="wrap">
             <a className="button" href={`/courses/${id}/update`}>Update Course</a>
-            <a className="button" href="/">Delete Course</a>
+            <a className="button" onClick={handleDelete} href="/">Delete Course</a>
             <a className="button button-secondary" href="/">Return to List</a>
           </div>
         </div>
