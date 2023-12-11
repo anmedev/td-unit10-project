@@ -18,7 +18,7 @@ const CreateCourse  =  () => {
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
-    // const { actions } = useContext(UserContext);
+    const { actions } = useContext(UserContext);
     const { authUser } = useContext(UserContext);
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -43,39 +43,41 @@ const CreateCourse  =  () => {
     // };
 
     // Event handler for form submission.
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-          const response = await api("/courses", "POST", null, authUser);
-          setCourse(response);
-          navigate("/");
-          // console.log(response);
-        } catch (error) {
-          setErrors(error);
-          console.log("Error fetching and parsing data", error);
-        }
+      const response = await api("/courses", "POST", {course}, authUser);
+      if (response.status === 201) {
+        console.log(`${authUser.emailAddress} is successfully signed up and authenticated!`);
+        await actions.signIn(authUser);
+        setCourse(course);
+        navigate("/");
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+      // navigate("/error");
+    }
+    // try {
+    //       const response = await api("/courses", "POST", null, {authUser});
+    //       setCourse(response);
+    //       navigate("/");
+    //       // console.log(response);
+    //     } catch (error) {
+    //       setErrors(error);
+    //       console.log("Error fetching and parsing data", error);
+    //     }
 
     // const user = {
     //   username: username.current.value,
     //   password: password.current.value
     // }
 
-    // try {
-    //   const response = await api("/courses", "POST", {course}, authUser);
-    //   if (response.status === 201) {
-    //     console.log(`${authUser.emailAddress} is successfully signed up and authenticated!`);
-    //     await actions.signIn(authUser);
-    //     navigate("/");
-    //   } else if (response.status === 400) {
-    //     const data = await response.json();
-    //     setErrors(data.errors);
-    //   } else {
-    //     throw new Error();
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   // navigate("/error");
-    // }
+   
   }
     // const handleSubmit = async (e) => {
     //   e.preventDefault();
