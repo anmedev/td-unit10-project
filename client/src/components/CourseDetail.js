@@ -28,9 +28,9 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
-  // if (authUser && authUser.id === course.user.id) {
-
-  // }
+  // Testing that I can access authUser and course owner ID's
+  console.log(authUser.id); // should be 16
+  console.log(course.User.userId); // should be 1
 
    // Event handler to delete a course when button is clicked.
    const handleDelete = async (e) => {
@@ -47,6 +47,8 @@ const CourseDetail = () => {
       console.log(error);
     }
   };
+
+  
 
   // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {

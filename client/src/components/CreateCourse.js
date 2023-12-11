@@ -79,35 +79,6 @@ const CreateCourse  =  () => {
         </main>
     );
 
-    
-    // Renders the new Course page.
-  //   return (
-  //     <main>
-  //       <div className="wrap">
-  //         <h2>Create Course</h2>
-  //         <DisplayErrors errors={errors} />
-  //         <form onSubmit={handleSubmit}>
-  //           <div className="main--flex">
-  //             <div>
-  //               <label htmlFor="title">Course Title</label>
-  //               <input id="title" onChange={handleInput} name="title" type="text" />
-  //               <p>By {authUser.firstName} {authUser.lastName}</p>
-  //               <label htmlFor="description">Course Description</label>
-  //               <textarea id="description" onChange={handleInput} name="description" />
-  //             </div>
-  //             <div>
-  //               <label htmlFor="estimatedTime">Estimated Time</label>
-  //               <input id="estimatedTime" onChange={handleInput} name="estimatedTime" type="text" />
-  //               <label htmlFor="materialsNeeded">Materials Needed</label>
-  //               <textarea id="materialsNeeded" onChange={handleInput} name="materialsNeeded" />
-  //             </div>
-  //           </div>
-  //           <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
-  //         </form>
-  //       </div>
-  //     </main>
-  // );
-
   }
 
 export default CreateCourse;
