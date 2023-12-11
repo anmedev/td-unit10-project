@@ -50,7 +50,7 @@ const CreateCourse  =  () => {
       if (response.status === 201) {
         console.log(`${authUser.emailAddress} is successfully signed up and authenticated!`);
         await actions.signIn(authUser);
-        setCourse(course);
+        setCourse(response);
         navigate("/");
       } else if (response.status === 400) {
         const data = await response.json();
