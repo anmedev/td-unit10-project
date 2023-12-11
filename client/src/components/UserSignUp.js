@@ -50,13 +50,6 @@ const UserSignUp = () => {
     navigate("/");
   }
 
-  // Displays validation errors.
-  // const DisplayErrors = () => {
-  //   if (errors) {
-  //     return <ErrorsDisplay errors={errors} />
-  //   }
-  // }
-
   return (
     <main>
       <div className="form--centered">
