@@ -48,7 +48,7 @@ const CreateCourse  =  () => {
     try {
           const response = await api("/courses", "POST", null, authUser);
           setCourse(response);
-          // navigate("/");
+          navigate("/");
           // console.log(response);
         } catch (error) {
           setErrors(error);
