@@ -1,6 +1,7 @@
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ErrorsDisplay from "./ErrorsDisplay";
 import axios from "axios";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -8,6 +9,7 @@ const UpdateCourse = () => {
 
   // State
   const [course, setCourse] = useState(null);
+  const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ const UpdateCourse = () => {
         const response = await axios.get(`http://localhost:5000/api/courses/${id}`);
         setCourse(response.data);
       } catch (error) {
+        setErrors(error)
         console.log("Error fetching and parsing data", error);
       }
     };
@@ -29,12 +32,20 @@ const UpdateCourse = () => {
     e.preventDefault();
     navigate(`/courses/${id}`);
   };
-    
+  
+    // Displays validation errors.
+  const DisplayErrors = () => {
+    if (errors) {
+      return <ErrorsDisplay errors={errors} />
+    }
+  }
+
   if (course) {
     return (
       <main>
         <div className="wrap">
           <h2>Update Course</h2>
+          <DisplayErrors errors={errors} />
           <form>
             <div className="main--flex">
               <div>

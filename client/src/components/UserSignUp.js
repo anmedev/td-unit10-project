@@ -41,7 +41,7 @@ const UserSignIn = () => {
       }
     } catch (error) {
       console.log(error);
-      navigate("/error");
+      // navigate("/error");
     }
   }
 
@@ -50,11 +50,18 @@ const UserSignIn = () => {
     navigate("/");
   }
 
+  // Displays validation errors.
+  const DisplayErrors = () => {
+    if (errors) {
+      return <ErrorsDisplay errors={errors} />
+    }
+  }
+
   return (
     <main>
       <div className="form--centered">
         <h2>Sign Up</h2>
-        <ErrorsDisplay errors={errors} />
+        <DisplayErrors errors={errors} />
         <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
           <input id="firstName" name="firstName" type="text" ref={firstName} />

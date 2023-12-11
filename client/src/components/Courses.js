@@ -2,9 +2,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const Courses = () => {
+
+// State
   const [courses, setCourses] = useState([]);
+
+// Fetches the list of courses from REST API.
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -17,6 +21,7 @@ const Courses = () => {
     fetchCourses();
   }, []);
 
+// Renders the Courses page.
   return (
     <main>
       <div className="wrap main--grid">

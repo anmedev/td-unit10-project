@@ -2,7 +2,10 @@ import { createContext, useState } from "react";
 import Cookies from "js-cookie";
 import { api } from "../utils/apiHelper";
 
-const UserContext = createContext(null);
+const UserContext = createContext({
+  authUser: null,
+  actions: {},
+});
 
 export const UserProvider = (props) => {
   const cookie = Cookies.get("authenticatedUser");

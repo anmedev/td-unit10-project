@@ -4,11 +4,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Markdown from "react-markdown";
 
-//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CourseDetail = () => {
+
+  // State
   const [course, setCourse] = useState(null);
   const { id } = useParams();
 
+  // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
     const fetchCourse = async () => {
       try {
@@ -21,7 +24,7 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
-  // Waits until setCourse has data and renders the page once a course exists
+  // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {
     return (
       <main>
