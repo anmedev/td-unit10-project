@@ -11,6 +11,7 @@ const CourseDetail = () => {
 
   // State
   const [course, setCourse] = useState(null);
+  // const [showButton, setShowButton] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
   const { authUser } = useContext(UserContext);
@@ -30,7 +31,9 @@ const CourseDetail = () => {
 
   // Testing that I can access authUser and course owner ID's
   console.log(authUser.id); // should be 16
-  console.log(course.User.userId); // should be 1
+  // console.log(course.User.userId); // should be 1
+
+  
 
    // Event handler to delete a course when button is clicked.
    const handleDelete = async (e) => {
@@ -48,7 +51,14 @@ const CourseDetail = () => {
     }
   };
 
+  // BUTTON LOGIC -- STEP 9
+  if (authUser && authUser.id === course.User.id) {
+    <>
+      <Link to={`/courses/${id}/update`} className="button">Update Course</Link>
+      <Link to="/" className="button" onClick={handleDelete}>Delete Course</Link>
+    </>
   
+  }
 
   // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {
@@ -56,8 +66,8 @@ const CourseDetail = () => {
       <main>
         <div className="actions--bar">
           <div className="wrap">
-            <Link to={`/courses/${id}/update`} className="button">Update Course</Link>
-            <Link to="/" className="button" onClick={handleDelete}>Delete Course</Link>
+            <Link to={`/courses/${id}/update`} className="button" style={{ display: "none" }}>Update Course</Link>
+            <Link to="/" className="button" onClick={handleDelete} style={{ display: "none" }}>Delete Course</Link>
             <Link to="/" className="button button-secondary">Return to List</Link>
           </div>
         </div>
