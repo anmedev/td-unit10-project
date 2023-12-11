@@ -1,17 +1,28 @@
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../context/UserContext";
 import ErrorsDisplay from "./ErrorsDisplay";
+import { api } from "../utils/apiHelper";
 import axios from "axios";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const UpdateCourse = () => {
 
   // State
-  const [course, setCourse] = useState(null);
+  const { authUser } = useContext(UserContext);
+  const [course, setCourse] = useState({
+    title: "",
+    description: "",
+    estimatedTime: "",
+    materialsNeeded: "",
+    userId: authUser.id
+});
   const [errors, setErrors] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  
+
 
   // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
@@ -27,10 +38,36 @@ const UpdateCourse = () => {
     fetchCourse();
   }, [id]);
 
+  // Event handler that updates the state based on the user's input. 
+  const handleInput = (e) => {
+    setCourse({ ...course, [e.target.name]: e.target.value });
+  };
+
+  
   // Event handler for the "Cancel" button.
   const handleCancel = (e) => {
     e.preventDefault();
     navigate(`/courses/${id}`);
+  };
+
+   // Event handler for form submission. 
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api(`/courses/${id}`, "PUT", course, authUser);
+      console.log(response.status);
+      if (response.status === 204) {
+        console.log(`Your course "${course.title}" has been updated!`);
+        navigate("/");
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   
     // Displays validation errors.
@@ -46,20 +83,20 @@ const UpdateCourse = () => {
         <div className="wrap">
           <h2>Update Course</h2>
           <DisplayErrors errors={errors} />
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="main--flex">
               <div>
                 <label htmlFor="courseTitle">Course Title</label>
-                <input id="courseTitle" name="courseTitle" type="text" defaultValue={course.title} />
+                <input id="courseTitle" name="courseTitle" onChange={handleInput} type="text" defaultValue={course.title} />
                 <p>By Joe Smith</p>
                 <label htmlFor="courseDescription">Course Description</label>
-                <textarea id="courseDescription" name="courseDescription" defaultValue={course.description} />
+                <textarea id="courseDescription" name="courseDescription" onChange={handleInput} defaultValue={course.description} />
               </div>
               <div>
                 <label htmlFor="estimatedTime">Estimated Time</label>
-                <input id="estimatedTime" name="estimatedTime" type="text" defaultValue={course.estimatedTime} />
+                <input id="estimatedTime" name="estimatedTime" type="text" onChange={handleInput} defaultValue={course.estimatedTime} />
                 <label htmlFor="materialsNeeded">Materials Needed</label>
-                <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={course.materialsNeeded} />
+                <textarea id="materialsNeeded" name="materialsNeeded" onChange={handleInput} defaultValue={course.materialsNeeded} />
               </div>
             </div>
             <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
@@ -69,6 +106,5 @@ const UpdateCourse = () => {
     );
   }
 };
-
 
 export default UpdateCourse;
