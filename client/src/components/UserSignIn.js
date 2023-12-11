@@ -5,7 +5,7 @@ import ErrorsDisplay from './ErrorsDisplay';
 import UserContext from '../context/UserContext';
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-const UserSignUp = () => {
+const UserSignIn = () => {
   const { actions } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,4 +64,4 @@ const UserSignUp = () => {
   );
 }
 
-export default UserSignUp;
+export default UserSignIn;
