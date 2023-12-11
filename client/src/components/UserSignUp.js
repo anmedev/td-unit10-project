@@ -51,17 +51,17 @@ const UserSignUp = () => {
   }
 
   // Displays validation errors.
-  const DisplayErrors = () => {
-    if (errors) {
-      return <ErrorsDisplay errors={errors} />
-    }
-  }
+  // const DisplayErrors = () => {
+  //   if (errors) {
+  //     return <ErrorsDisplay errors={errors} />
+  //   }
+  // }
 
   return (
     <main>
       <div className="form--centered">
         <h2>Sign Up</h2>
-        <DisplayErrors errors={errors} />
+        <ErrorsDisplay errors={errors} />
         <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">First Name</label>
           <input id="firstName" name="firstName" type="text" ref={firstName} />
