@@ -9,18 +9,17 @@ import axios from "axios";
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const UpdateCourse = () => {
 
-  // State
   const { authUser } = useContext(UserContext);
+
+  // States and Setter Functions
+  const [errors, setErrors] = useState([]);
   const [course, setCourse] = useState({
     title: "",
     description: "",
     estimatedTime: "",
     materialsNeeded: "",
     userId: authUser.id
-});
-
-  
-  const [errors, setErrors] = useState([]);
+  });
   const { id } = useParams();
   const navigate = useNavigate();
   
@@ -43,7 +42,6 @@ const UpdateCourse = () => {
     setCourse({ ...course, [e.target.name]: e.target.value });
   };
 
-  
   // Event handler for the "Cancel" button.
   const handleCancel = (e) => {
     e.preventDefault();
@@ -69,15 +67,6 @@ const UpdateCourse = () => {
       console.log(error);
     }
   };
-
-  
-  
-    // Displays validation errors.
-  // const DisplayErrors = () => {
-  //   if (errors) {
-  //     return <ErrorsDisplay errors={errors} />
-  //   }
-  // }
 
   if (course) {
     return (

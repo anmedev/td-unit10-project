@@ -10,11 +10,11 @@ const UserSignUp = () => {
   const navigate = useNavigate();
 
   // State
+  const [errors, setErrors] = useState([]);
   const firstName = useRef(null);
   const lastName = useRef(null);
   const emailAddress = useRef(null);
   const password = useRef(null);
-  const [errors, setErrors] = useState([]);
 
   // Event handlers
   const handleSubmit = async (e) => {
@@ -41,7 +41,6 @@ const UserSignUp = () => {
       }
     } catch (error) {
       console.log(error);
-      // navigate("/error");
     }
   }
 
