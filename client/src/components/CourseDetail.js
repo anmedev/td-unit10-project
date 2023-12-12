@@ -52,13 +52,13 @@ const CourseDetail = () => {
   };
 
   // BUTTON LOGIC -- STEP 9
-  if (authUser && authUser.id === course.User.id) {
-    <>
-      <Link to={`/courses/${id}/update`} className="button">Update Course</Link>
-      <Link to="/" className="button" onClick={handleDelete}>Delete Course</Link>
-    </>
+  // if (authUser && authUser.id === course.User.id) {
+  //   <>
+  //     <Link to={`/courses/${id}/update`} className="button">Update Course</Link>
+  //     <Link to="/" className="button" onClick={handleDelete}>Delete Course</Link>
+  //   </>
   
-  }
+  // }
 
   // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {
@@ -66,9 +66,36 @@ const CourseDetail = () => {
       <main>
         <div className="actions--bar">
           <div className="wrap">
-            <Link to={`/courses/${id}/update`} className="button" style={{ display: "none" }}>Update Course</Link>
-            <Link to="/" className="button" onClick={handleDelete} style={{ display: "none" }}>Delete Course</Link>
-            <Link to="/" className="button button-secondary">Return to List</Link>
+            {authUser && authUser.id === course.User.id ? (
+              <>
+                <Link to={`/courses/${id}/update`} className="button">
+                  Update Course
+                </Link>
+                <Link to="/" className="button" onClick={handleDelete}>
+                  Delete Course
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
+            <Link
+              to={`/courses/${id}/update`}
+              className="button"
+              style={{ display: "none" }}
+            >
+              Update Course
+            </Link>
+            <Link
+              to="/"
+              className="button"
+              onClick={handleDelete}
+              style={{ display: "none" }}
+            >
+              Delete Course
+            </Link>
+            <Link to="/" className="button button-secondary">
+              Return to List
+            </Link>
           </div>
         </div>
         <div className="wrap">
