@@ -8,10 +8,9 @@ import axios from "axios";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const UpdateCourse = () => {
-
+  // Authenticated user.
   const { authUser } = useContext(UserContext);
-
-  // States and Setter Functions
+  // States and Setter Functions.
   const [errors, setErrors] = useState([]);
   const [course, setCourse] = useState({
     title: "",
@@ -20,9 +19,12 @@ const UpdateCourse = () => {
     materialsNeeded: "",
     userId: authUser.id
   });
+  // Retrieves the course id to use as parameter for the page's URL.
   const { id } = useParams();
+  // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
-  
+
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-DATA FETCHING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
     const fetchCourse = async () => {
@@ -37,6 +39,7 @@ const UpdateCourse = () => {
     fetchCourse();
   }, [id]);
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   // Event handler that updates the state based on the user's input. 
   const handleInput = (e) => {
     setCourse({ ...course, [e.target.name]: e.target.value });
@@ -68,6 +71,8 @@ const UpdateCourse = () => {
     }
   };
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+  // Waits until the SetCourse setter func has course data from the REST API and renders the Update Course page if a course exists.
   if (course) {
     return (
       <main>

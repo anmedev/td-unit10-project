@@ -5,10 +5,11 @@ import { api } from '../utils/apiHelper';
 import ErrorsDisplay from './ErrorsDisplay';
 import UserContext from '../context/UserContext';
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const UserSignUp = () => {
   const { actions } = useContext(UserContext);
+  // Authenticated user.
   const navigate = useNavigate();
-
   // State
   const [errors, setErrors] = useState([]);
   const firstName = useRef(null);
@@ -16,17 +17,16 @@ const UserSignUp = () => {
   const emailAddress = useRef(null);
   const password = useRef(null);
 
-  // Event handlers
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+  // Event handler for form submission. 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const user = {
       firstName: firstName.current.value,
       lastName: lastName.current.value,
       emailAddress: emailAddress.current.value,
       password: password.current.value
     }
-
     try {
       const response = await api("/users", "POST", user);
       if (response.status === 201) {
@@ -44,11 +44,13 @@ const UserSignUp = () => {
     }
   }
 
+  // Event handler for the "Cancel" button.
   const handleCancel = (e) => {
     e.preventDefault();
     navigate("/");
   }
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   return (
     <main>
       <div className="form--centered">

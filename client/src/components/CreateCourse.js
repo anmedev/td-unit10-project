@@ -7,50 +7,52 @@ import { api } from "../utils/apiHelper";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CreateCourse  =  () => {
-    // States and Setter Functions
-    const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
-    const { authUser } = useContext(UserContext);
-    const [course, setCourse] = useState({
-        title: "",
-        description: "",
-        estimatedTime: "",
-        materialsNeeded: "",
-        userId: authUser.id
-    });
+  // Creates a navigate function used to navigate to different pages.
+  const navigate = useNavigate();
+  // Authenticated user.
+  const { authUser } = useContext(UserContext);
+  // States and Setter Functions
+  const [course, setCourse] = useState({
+    title: "",
+    description: "",
+    estimatedTime: "",
+    materialsNeeded: "",
+    userId: authUser.id
+  });
+  const [errors, setErrors] = useState([]);
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-   
-    // Event handler that updates the state based on the user's input. 
-    const handleInput = (e) => {
-      setCourse({ ...course, [e.target.name]: e.target.value });
-    };
+  // Event handler that updates the state based on the user's input. 
+  const handleInput = (e) => {
+    setCourse({ ...course, [e.target.name]: e.target.value });
+  };
 
-    // Event handler for form submission. 
-   const handleSubmit = async (e) => {
-     e.preventDefault();
-     try {
-       const response = await api("/courses", "POST", course, authUser);
-       if (response.status === 201) {
-         console.log(`Your new course "${course.title}" has been added!`);
-         navigate("/");
-       } else if (response.status === 400) {
-         const data = await response.json();
-         setErrors(data.errors);
-       } else {
-         throw new Error();
-       }
-     } catch (error) {
-       console.log(error);
-     }
-   };
+  // Event handler for form submission. 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api("/courses", "POST", course, authUser);
+      if (response.status === 201) {
+        console.log(`Your new course "${course.title}" has been added!`);
+        navigate("/");
+      } else if (response.status === 400) {
+        const data = await response.json();
+        setErrors(data.errors);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
     
-   // Event handler for the Cancel button.
-    const handleCancel = (e) => {
-      e.preventDefault();
-      navigate("/");
-    };
+  // Event handler for the "Cancel" button.
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   // Renders the new Course page.
     return (
         <main>
@@ -78,7 +80,6 @@ const CreateCourse  =  () => {
           </div>
         </main>
     );
-
   }
 
 export default CreateCourse;

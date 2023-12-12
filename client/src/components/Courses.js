@@ -4,11 +4,11 @@ import axios from "axios";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const Courses = () => {
-
-// State
+  // State and Setter Functions
   const [courses, setCourses] = useState([]);
 
-// Fetches the list of courses from REST API.
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-DATA FETCHING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+  // Fetches the list of courses from REST API.
   useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -21,7 +21,8 @@ const Courses = () => {
     fetchCourses();
   }, []);
 
-// Renders the Courses page.
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+  // Renders the Courses page.
   return (
     <main>
       <div className="wrap main--grid">

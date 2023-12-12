@@ -7,6 +7,7 @@ import UserContext from '../context/UserContext';
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*
 const UserSignIn = () => {
   const { actions } = useContext(UserContext);
+  // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,19 +16,18 @@ const UserSignIn = () => {
   const password = useRef(null);
   const [errors, setErrors] = useState([]);
 
-  // Event Handlers
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+  // Event handler for form submission. 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let from = '/';
     if (location.state) {
       from = location.state.from;
     }
-
     const credentials = {
       emailAddress: emailAddress.current.value,
       password: password.current.value
     };
-
     try {
       const user = await actions.signIn(credentials);
       if (user) {
@@ -37,15 +37,16 @@ const UserSignIn = () => {
       }
     } catch (error) {
       console.log(error);
-    //   navigate("/error");
     }
   }
 
+  // Event handler for the "Cancel" button.
   const handleCancel = (e) => {
     e.preventDefault();
     navigate("/");
   }
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   return (
     <main>
       <div className="form--centered">

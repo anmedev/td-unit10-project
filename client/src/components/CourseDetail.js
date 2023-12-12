@@ -8,14 +8,16 @@ import UserContext from "../context/UserContext";
 
 //-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const CourseDetail = () => {
-
-  // State
+  // State and State Setter Functions.
   const [course, setCourse] = useState(null);
-  // const [showButton, setShowButton] = useState(true);
+  // Retrieves the course id to use as parameter for the page's URL.
   const { id } = useParams();
+  // Creates a navigate function used to navigate to different pages.
   const navigate = useNavigate();
+  // Authenticated user.
   const { authUser } = useContext(UserContext);
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-DATA FETCHING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   // Fetches a single course from the REST API based on the course's id.
   useEffect(() => {
     const fetchCourse = async () => {
@@ -29,7 +31,8 @@ const CourseDetail = () => {
     fetchCourse();
   }, [id]);
 
-   // Event handler to delete a course when button is clicked.
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-EVENT HANDLERS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+   // Event handler for the "Delete" button.
    const handleDelete = async (e) => {
     e.preventDefault();
     try {
@@ -45,6 +48,7 @@ const CourseDetail = () => {
     }
   };
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-PAGE RENDERING-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
   // Waits until the SetCourse setter func has course data from the REST API and renders the Course Detail page if a course exists.
   if (course) {
     return (

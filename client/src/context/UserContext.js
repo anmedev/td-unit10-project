@@ -1,7 +1,9 @@
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-IMPORTS-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 import { createContext, useState } from "react";
 import Cookies from "js-cookie";
 import { api } from "../utils/apiHelper";
 
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-CONTEXT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const UserContext = createContext({
   authUser: null,
   actions: {},

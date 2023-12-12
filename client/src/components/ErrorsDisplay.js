@@ -1,3 +1,4 @@
+//-*-*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-COMPONENT-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 const ErrorsDisplay = ({ errors }) => {
   let errorsDisplay = null;
 
